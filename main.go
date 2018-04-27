@@ -13,8 +13,11 @@ func split(path string) []string {
 	for i, char := range path {
 		if i == 0 {
 			continue
-		}
-		if char == os.PathSeparator || i == len(path)-1 {
+		} else if i == len(path)-1 {
+			buffer.WriteRune(char)
+			r = append(r, buffer.String())
+			buffer.Reset()
+		} else if char == os.PathSeparator {
 			r = append(r, buffer.String())
 			buffer.Reset()
 		} else {
